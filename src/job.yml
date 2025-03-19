@@ -1,15 +1,19 @@
 $schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
 code: model
-command: >-
-  python 
-  --
-  --
+command: >- 
+  python train.py
+  --training_data ${{inputs.training_data}}
+  --reg_rate ${{inputs.reg_rate}}
 inputs:
   training_data: 
     type: uri_folder 
-    path: 
+    path: /home/azureuser/MLOps-Workflow/experimentation/data
   reg_rate: 0.01
 environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu@latest
-compute: 
-experiment_name: 
-description: 
+compute: azureml:mlopsinstance1010
+experiment_name: LogisticRegression_Training_Job_1
+description: This job trains a logistic regression model
+
+# /home/azureuser/MLOps-Workflow/src/model/train.py
+
+# /home/azureuser/MLOps-Workflow/experimentation/data/diabetes-dev.csv
